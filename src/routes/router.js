@@ -1,0 +1,20 @@
+const bodyParser = require('body-parser');
+const accounts = require('./AccountRoute')
+const questions = require('./QuestionRoute')
+const journeys = require('./JourneyRoute')
+const dental =  require('./DentalRoute')
+const appraisal = require('./AppraisalRoute')
+const diciplines = require('./disciplineRoute')
+const institutes = require('./InstituteRoute')
+const alternatives = require('./AlternativeRoute')
+module.exports = app =>  {
+    app.use(bodyParser.json())
+    app.use(accounts)
+    app.use(questions)
+    app.use(journeys)
+    app.use(dental)
+    app.use(appraisal)
+    app.use(diciplines)
+    app.use(institutes)
+    app.use(alternatives)
+}
