@@ -3,6 +3,7 @@ const express = require('express');
 const routes = require('./routes/router')
 const app = express()
 routes(app)
-app.listen('3000', () => {
-    console.log('servidor iniciado com sucesso ')
-})
+const port = process.env.PORT || 3000;
+app.listen(port, () => {
+    console.log(`Aplicativo rodando na porta ${port}`);
+  });
