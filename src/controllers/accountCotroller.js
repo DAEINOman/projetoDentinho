@@ -49,6 +49,9 @@ class AccountController {
             password
         } = req.body
         try {
+            if(!name || !email || !password){
+                res.status(404).json("Falta alguma informação na requisição")
+            }
             const passwordEncrypt = await bcrypt.hash(password, 10);
             await database.Accounts.create({
                 name,
@@ -58,6 +61,7 @@ class AccountController {
                 createdAt:new Date(),
                 updatedAt: new Date()
             })
+            
             return res.status(201).json('Conta criada com sucesso')
         } catch (error) {
             return res.status(500).json(error.message)
