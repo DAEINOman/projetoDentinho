@@ -103,19 +103,25 @@ class AccountController {
         try {
            
             const account = await database.Accounts.findOne({where:{email:email}})
-          
+            
             if (!account) {
                 return res.status(404).json('O usuário não foi encontrado')
             }
+            
             const passwordCorrect = await bcrypt.compare(password, account.password)
+            
             if (!passwordCorrect) {
                 return res.status(401).json('Email ou senha não conferem')
             }
+
             const passwordHash = process.env.KEY_JWT
+            
             const token = jwt.sign({ id: account.id }, passwordHash, { expiresIn: '8h' })
             const { password: _, ...dadosaccounts } = account;
+
+            
             return res.status(200).json({
-                accounts: dadosaccounts,
+                accounts: dadosaccounts.dataValues,
                 token
             });
         } catch (error) {
